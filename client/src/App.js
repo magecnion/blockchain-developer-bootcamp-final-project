@@ -3,16 +3,11 @@ import {
   Button,
   Text,
   useDisclosure,
-  Modal,
-  ModalContent,
-  ModalCloseButton,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
   ChakraProvider,
   Spacer,
   Flex,
 } from "@chakra-ui/react";
+import NFogForm from "./NFogForm";
 import NFogList from "./NFogList";
 
 function App() {
@@ -34,19 +29,7 @@ function App() {
             </Button>
           </Flex>
           <NFogList/>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalContent>
-              <ModalHeader>Create a NFog</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>{"TODO form..."}</ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3}>
-                  Create
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+          <NFogForm isOpen={isOpen} onClose={onClose}/>
         </Container>
       </div>
     </ChakraProvider>

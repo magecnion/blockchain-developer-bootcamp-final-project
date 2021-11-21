@@ -10,9 +10,12 @@ import {
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
+import axios from "axios";
 
-const NFogCard = ({ title }) => {
+const NFogCard = ({ title, cid }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // TODO useEffect
+  getJSONFromIPFS(cid);
 
     return (
       <Box bg="tomato" height="80px" width="80px">
@@ -36,3 +39,14 @@ const NFogCard = ({ title }) => {
 
 
 export default NFogCard;
+
+const getJSONFromIPFS = (cid) => {
+  return axios
+    .get(process.env.REACT_APP_IFPS_GATEWAY + cid)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
