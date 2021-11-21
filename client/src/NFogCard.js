@@ -1,52 +1,42 @@
 import {
   Box,
-  Button,
   Modal,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-import axios from "axios";
+import { decrypt } from "./utils";
+import { retrieveFromIPFS } from "./ipfs";
+import { useEffect } from "react";
 
-const NFogCard = ({ title, cid }) => {
+export const NFogCard = ({ title, cid }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // TODO useEffect
-  getJSONFromIPFS(cid);
 
-    return (
-      <Box bg="tomato" height="80px" width="80px">
-        {title}
+  useEffect(() => {
+    (async () => {
+      const content = await retrieveFromIPFS(cid);
+      console.log(decrypt(content, "key"));
+    })();
+  }, [onOpen]);
 
-        <Link color="teal.500" href="#" onClick={onOpen}>
-          View
-        </Link>
+  return (
+    <Box bg="tomato" height="80px" width="80px">
+      {title}
 
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalContent>
-            <ModalHeader>NFog: {title}</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>info...</ModalBody>
+      <Link color="teal.500" href="#" onClick={onOpen}>
+        View
+      </Link>
 
-          </ModalContent>
-        </Modal>
-      </Box>
-    );
-}
-
-
-export default NFogCard;
-
-const getJSONFromIPFS = (cid) => {
-  return axios
-    .get(process.env.REACT_APP_IFPS_GATEWAY + cid)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalContent>
+          <ModalHeader>NFog: {title}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>info...</ModalBody>
+        </ModalContent>
+      </Modal>
+    </Box>
+  );
 };

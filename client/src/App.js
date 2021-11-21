@@ -7,8 +7,8 @@ import {
   Spacer,
   Flex,
 } from "@chakra-ui/react";
-import NFogForm from "./NFogForm";
-import NFogList from "./NFogList";
+import { NFogForm } from "./NFogForm";
+import { NFogList } from "./NFogList";
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,8 +28,8 @@ function App() {
               Create my NFog
             </Button>
           </Flex>
-          <NFogList/>
-          <NFogForm isOpen={isOpen} onClose={onClose}/>
+          <NFogList />
+          <NFogForm isOpen={isOpen} onClose={onClose} />
         </Container>
       </div>
     </ChakraProvider>

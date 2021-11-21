@@ -1,17 +1,13 @@
+import { Grid } from "@chakra-ui/react";
+import { NFogCard } from "./NFogCard";
 
-import {
-  Grid,
-} from "@chakra-ui/react";
-import NFogCard from "./NFogCard";
-
-const NFogList = () => (
+export const NFogList = () => (
   <Grid templateColumns="repeat(5, 1fr)" gap={6}>
     {[1].map((i) => (
       <NFogCard
         title={i}
-        cid="QmWfadZdkJVks6djA9neRqbGo9Bdd8PHHDoZMXdqrHY1jP"
+        cid="QmTj45nztyXYWffEkVj1WM375WCzg743q7j16jJCVFnRkV"
       />
     ))}
   </Grid>
 );
-export default NFogList;
