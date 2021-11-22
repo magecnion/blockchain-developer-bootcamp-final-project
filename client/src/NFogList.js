@@ -6,7 +6,7 @@ export const NFogList = () => (
     {[1].map((i) => (
       <NFogCard
         title={i}
-        cid="QmTj45nztyXYWffEkVj1WM375WCzg743q7j16jJCVFnRkV"
+        cid="Qmf4BLoUU9XiiqzpndJXFDd4x8tpgGYs16KftyR2Hmiew9"
       />
     ))}
   </Grid>
