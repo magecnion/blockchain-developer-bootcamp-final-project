@@ -10,7 +10,7 @@ export const uploadJSONToIPFS = (JSONBody) => {
       },
     })
     .then(function (response) {
-      console.log(response);
+      return response;
     })
     .catch(function (error) {
       console.log(error);
@@ -60,7 +60,6 @@ export const retrieveFromIPFS = (cid) => {
   return axios
     .get(process.env.REACT_APP_IFPS_GATEWAY + cid)
     .then(function (response) {
-      console.log(response);
       return response.data;
     })
     .catch(function (error) {

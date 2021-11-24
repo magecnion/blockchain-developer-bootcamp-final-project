@@ -1,38 +1,30 @@
-import {
-  Container,
-  Button,
-  Text,
-  useDisclosure,
-  ChakraProvider,
-  Spacer,
-  Flex,
-} from "@chakra-ui/react";
-import { NFogForm } from "./NFogForm";
-import { NFogList } from "./NFogList";
+import { Container, ChakraProvider } from "@chakra-ui/react";
+import { NFogList } from "./components/NFogList";
+import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
+import { Header } from "./components/Header";
+
+function getLibrary(provider) {
+  return new Web3Provider(provider);
+}
 
 function App() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <ChakraProvider>
-      <div className="App">
-        <Container
-          maxW="container.xl"
-          centerContent
-          bg="green.100"
-          width="100%"
-        >
-          <Flex width="100%" bg="red.100">
-            <Text fontSize="2xl">NFog</Text>
-            <Spacer />
-            <Button width="15%" onClick={onOpen}>
-              Create my NFog
-            </Button>
-          </Flex>
-          <NFogList />
-          <NFogForm isOpen={isOpen} onClose={onClose} />
-        </Container>
-      </div>
-    </ChakraProvider>
+    <Web3ReactProvider getLibrary={getLibrary}>
+      <ChakraProvider>
+        <div className="App">
+          <Container
+            maxW="container.xl"
+            centerContent
+            bg="green.100"
+            width="100%"
+          >
+            <Header />
+            <NFogList />
+          </Container>
+        </div>
+      </ChakraProvider>
+    </Web3ReactProvider>
   );
 }
 

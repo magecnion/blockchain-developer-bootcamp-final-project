@@ -9,8 +9,12 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
-import { encrypt } from "./utils";
-import { uploadTextToIPFS, uploadJSONToIPFS, uploadFileToIPFS } from "./ipfs";
+import { encrypt } from "../utils/encryption";
+import {
+  uploadTextToIPFS,
+  uploadJSONToIPFS,
+  uploadFileToIPFS,
+} from "../utils/ipfs";
 
 import { useState } from "react";
 

@@ -11,8 +11,8 @@ import {
   Button,
   Image,
 } from "@chakra-ui/react";
-import { decrypt } from "./utils";
-import { retrieveFromIPFS } from "./ipfs";
+import { decrypt } from "../utils/encryption";
+import { retrieveFromIPFS } from "../utils/ipfs";
 import { useEffect, useState } from "react";
 
 export const NFogCard = ({ title, cid }) => {
@@ -37,7 +37,7 @@ export const NFogCard = ({ title, cid }) => {
       setNFTMetadata({
         name,
         description,
-        image: "todo",
+        image: "todo", // TODO
         content: contentEnc,
       });
     })();
