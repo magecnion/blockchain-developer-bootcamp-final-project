@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "./node_modules/.bin/hardhat compile",
+    "deploy:ganache": "./node_modules/.bin/hardhat run --network ganache scripts/deploy.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@openzeppelin/contracts": "^4.3.3",
+    "dotenv": "^10.0.0",
     "hardhat": "^2.6.8"
   }
 }
