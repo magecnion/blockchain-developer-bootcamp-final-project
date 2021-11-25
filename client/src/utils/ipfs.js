@@ -10,7 +10,7 @@ export const uploadJSONToIPFS = (JSONBody) => {
       },
     })
     .then(function (response) {
-      return response;
+      return response.data.IpfsHash;
     })
     .catch(function (error) {
       console.log(error);

@@ -17,6 +17,9 @@ import {
 } from "../utils/ipfs";
 
 import { useState } from "react";
+import { useContract } from "../hooks/useContract";
+import { useWalletProvider } from "../hooks/useProvider";
+const nfogJSON = require("../contracts/NFog.json");
 
 export const NFogForm = ({ isOpen, onClose }) => {
   const [nftMetadata, setNFTMetadata] = useState({
@@ -25,7 +28,19 @@ export const NFogForm = ({ isOpen, onClose }) => {
     file: "",
   });
 
-  const handleUploadToIPFS = async () => {
+  const contract = useContract(
+    process.env.REACT_APP_NFOG_CONTRACT_ADDRESS,
+    nfogJSON.abi,
+    useWalletProvider()
+  );
+
+  const submit = async () => {
+    const tokenUri = await uploadToIpfs();
+    const receipt = await contract.mint(tokenUri, "key");
+    console.log(receipt);
+  };
+
+  const uploadToIpfs = async () => {
     const contentEncCid = await uploadTextToIPFS(
       encrypt(nftMetadata.file, "key")
     );
@@ -38,7 +53,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
 
     const blob = await new Promise((resolve) => canvas.toBlob(resolve));
     const contentColorCid = await uploadFileToIPFS(blob);
-    const nftUri = uploadJSONToIPFS({
+    return uploadJSONToIPFS({
       name: nftMetadata.name,
       description: nftMetadata.description,
       content: contentEncCid,
@@ -81,7 +96,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
           />
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleUploadToIPFS}>
+          <Button colorScheme="blue" mr={3} onClick={submit}>
             Create
           </Button>
         </ModalFooter>
