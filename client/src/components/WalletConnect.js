@@ -14,11 +14,12 @@ import {
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { injected } from "../utils/connectors";
 import { useWeb3React } from "@web3-react/core";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { AppContext } from "../App";
 
 export const WalletConnect = () => {
-  const { activate, active, account, deactivate, chainId, error } = useWeb3React();
+  const { activate, active, account, deactivate, chainId, error } =
+    useWeb3React();
   const { state, dispatch } = useContext(AppContext);
 
   return active ? (
@@ -34,7 +35,7 @@ export const WalletConnect = () => {
         <PopoverCloseButton bg="purple.500" />
         <PopoverBody>
           Account: {account}
-          <br/>
+          <br />
           ChainId: {chainId}
         </PopoverBody>
       </PopoverContent>
