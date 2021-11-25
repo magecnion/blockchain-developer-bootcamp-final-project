@@ -10,7 +10,7 @@ contract NFog is ERC721URIStorage {
 
     event NFogOpenned(uint indexed tokenId, address indexed owner);
 
-    Counters.Counter private _tokenIds;
+    Counters.Counter public tokenCount;
 
     struct OpeningInfo {
         string secret;
@@ -28,9 +28,9 @@ contract NFog is ERC721URIStorage {
     ERC721(_name, _symbol) {}
 
     function mint(string memory tokenURI, string memory secret) public returns (uint256) {
-        _tokenIds.increment();
+        tokenCount.increment();
 
-        uint256 newItemId = _tokenIds.current();
+        uint256 newItemId = tokenCount.current();
 
         _safeMint(msg.sender, newItemId);
         _setTokenURI(newItemId, tokenURI);
@@ -48,14 +48,14 @@ contract NFog is ERC721URIStorage {
         _openingInfo[_tokenId].isOpen = false;
     }
 
-    function openNFog(uint256 _tokenId) onlyNFogOwner(_tokenId) public returns(string memory) {
+    function openNFog(uint256 _tokenId) onlyNFogOwner(_tokenId) public {
+        require(_openingInfo[_tokenId].isOpen == false, "NFog is already openned");
         _openingInfo[_tokenId].isOpen = true;
-        return _openingInfo[_tokenId].secret;
+        emit NFogOpenned(_tokenId, msg.sender);
     }
 
-    function viewNFog(uint256 _tokenId) onlyNFogOwner(_tokenId) public returns(string memory) {
-        require(_openingInfo[_tokenId].isOpen = false, "NFog is not openned");
-        emit NFogOpenned(_tokenId, msg.sender);
+    function viewNFog(uint256 _tokenId) public view onlyNFogOwner(_tokenId) returns(string memory) {
+        require(_openingInfo[_tokenId].isOpen == true, "NFog is not openned");
         return _openingInfo[_tokenId].secret;
     }
 
