@@ -15,6 +15,7 @@ function getLibrary(provider) {
 const initialState = {
   error: "",
   nfogContract: null,
+  txStatus: ""
 };
 
 const reducer = (state, { type, payload }) => {
@@ -23,6 +24,8 @@ const reducer = (state, { type, payload }) => {
       return { ...state, error: payload };
     case "SET_NFOG_CONTRACT":
       return { ...state, nfogContract: payload };
+    case "SET_TX_STATUS":
+      return { ...state, txStatus: payload };
     default:
       return state;
   }

@@ -18,16 +18,15 @@ export const ErrorModal = () => {
   return (
     <Modal
       isOpen={state.error !== ""}
-      onClose={() => dispatch({ type: "SET_ERROR", payload: "" })}
+      onClose={() => {
+        dispatch({ type: "SET_ERROR", payload: "" })
+         if (state.error.includes("UnsupportedChainIdError"))
+           return deactivate();
+    }}
     >
       <ModalContent>
         <ModalHeader>Error</ModalHeader>
-        <ModalCloseButton
-          onClick={() => {
-            if (state.error.includes("UnsupportedChainIdError"))
-              return deactivate();
-          }}
-        />
+        <ModalCloseButton />
         <ModalBody>
           <Text mb="2px">{state.error}</Text>
         </ModalBody>

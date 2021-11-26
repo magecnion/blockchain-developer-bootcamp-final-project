@@ -16,17 +16,22 @@ import {
   uploadFileToIPFS,
 } from "../utils/ipfs";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useContract } from "../hooks/useContract";
 import { useWalletProvider } from "../hooks/useProvider";
+import { AppContext } from "../App";
+
 const nfogJSON = require("../contracts/NFog.json");
 
+const initialState = {
+  name: "",
+  description: "",
+  file: "",
+};
+
 export const NFogForm = ({ isOpen, onClose }) => {
-  const [nftMetadata, setNFTMetadata] = useState({
-    name: "",
-    description: "",
-    file: "",
-  });
+  const { state, dispatch } = useContext(AppContext);
+  const [nftMetadata, setNFTMetadata] = useState(initialState);
 
   const contract = useContract(
     process.env.REACT_APP_NFOG_CONTRACT_ADDRESS,
@@ -35,9 +40,21 @@ export const NFogForm = ({ isOpen, onClose }) => {
   );
 
   const submit = async () => {
-    const tokenUri = await uploadToIpfs();
-    const receipt = await contract.mint(tokenUri, "key");
-    console.log(receipt);
+    try {
+      dispatch({ type: "SET_TX_STATUS", payload: "LOADING" });
+      const tokenUri = await uploadToIpfs();
+      const receipt = await contract.mint(tokenUri, "key");
+      dispatch({ type: "SET_TX_STATUS", payload: "COMPLETED" });
+      setNFTMetadata(initialState);
+    } catch (error) {
+      setNFTMetadata(initialState);
+      onClose()
+      dispatch({ type: "SET_TX_STATUS", payload: "" });
+      dispatch({
+        type: "SET_ERROR",
+        payload: "Error submitting you request...\n" + error.message,
+      });
+    }
   };
 
   const uploadToIpfs = async () => {
@@ -65,7 +82,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalContent>
         <ModalHeader>Create a NFog</ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton onClick={() => setNFTMetadata(initialState)} />
         <ModalBody>
           <Text mb="2px">Name</Text>
           <Input
@@ -96,7 +113,13 @@ export const NFogForm = ({ isOpen, onClose }) => {
           />
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={submit}>
+          <Button
+            colorScheme="blue"
+            mr={3}
+            onClick={submit}
+            isLoading={state.txStatus === "LOADING"}
+            loadingText="waiting for wallet"
+          >
             Create
           </Button>
         </ModalFooter>
