@@ -19,10 +19,11 @@ export const ErrorModal = () => {
     <Modal
       isOpen={state.error !== ""}
       onClose={() => {
-        dispatch({ type: "SET_ERROR", payload: "" })
-         if (state.error.includes("UnsupportedChainIdError"))
-           return deactivate();
-    }}
+        dispatch({ type: "SET_ERROR", payload: "" });
+        dispatch({ type: "SET_TX_STATUS", payload: "" });
+        if (state.error.includes("UnsupportedChainIdError"))
+          return deactivate();
+      }}
     >
       <ModalContent>
         <ModalHeader>Error</ModalHeader>

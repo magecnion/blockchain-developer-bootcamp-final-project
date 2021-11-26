@@ -48,7 +48,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
       setNFTMetadata(initialState);
     } catch (error) {
       setNFTMetadata(initialState);
-      onClose()
+      onClose();
       dispatch({ type: "SET_TX_STATUS", payload: "" });
       dispatch({
         type: "SET_ERROR",
