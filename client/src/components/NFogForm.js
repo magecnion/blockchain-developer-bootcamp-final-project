@@ -20,6 +20,7 @@ import { useState, useContext } from "react";
 import { useContract } from "../hooks/useContract";
 import { useWalletProvider } from "../hooks/useProvider";
 import { AppContext } from "../App";
+import { useWeb3React } from "@web3-react/core";
 
 const nfogJSON = require("../contracts/NFog.json");
 
@@ -32,6 +33,8 @@ const initialState = {
 export const NFogForm = ({ isOpen, onClose }) => {
   const { state, dispatch } = useContext(AppContext);
   const [nftMetadata, setNFTMetadata] = useState(initialState);
+  const { activate, active, account, deactivate, chainId, error } =
+    useWeb3React();
 
   const contract = useContract(
     process.env.REACT_APP_NFOG_CONTRACT_ADDRESS,
@@ -41,11 +44,19 @@ export const NFogForm = ({ isOpen, onClose }) => {
 
   const submit = async () => {
     try {
-      dispatch({ type: "SET_TX_STATUS", payload: "LOADING" });
+      dispatch({ type: "SET_TX_STATUS", payload: "WAITING_WALLET" });
       const tokenUri = await uploadToIpfs();
       const receipt = await contract.mint(tokenUri, "key");
+      dispatch({ type: "SET_TX_STATUS", payload: "WAITING_BLOCKCHAIN" });
+      await receipt.wait(1);
+      const id = await contract.tokenCount();
       dispatch({ type: "SET_TX_STATUS", payload: "COMPLETED" });
+      dispatch({
+        type: "ADD_NFOG",
+        payload: { uri: tokenUri, id: id, chainId: chainId },
+      });
       setNFTMetadata(initialState);
+      onClose();
     } catch (error) {
       setNFTMetadata(initialState);
       onClose();
@@ -117,8 +128,15 @@ export const NFogForm = ({ isOpen, onClose }) => {
             colorScheme="blue"
             mr={3}
             onClick={submit}
-            isLoading={state.txStatus === "LOADING"}
-            loadingText="waiting for wallet"
+            isLoading={
+              state.txStatus === "WAITING_WALLET" ||
+              state.txStatus === "WAITING_BLOCKCHAIN"
+            }
+            loadingText={
+              state.txStatus === "WAITING_WALLET"
+                ? "waiting for wallet"
+                : "waiting for blockchain"
+            }
           >
             Create
           </Button>

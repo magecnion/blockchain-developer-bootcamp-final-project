@@ -7,7 +7,6 @@ import { createContext, useReducer } from "react";
 import { ErrorModal } from "./components/ErrorModal";
 import { useWeb3React } from "@web3-react/core";
 
-
 function getLibrary(provider) {
   return new Web3Provider(provider);
 }
@@ -15,7 +14,8 @@ function getLibrary(provider) {
 const initialState = {
   error: "",
   nfogContract: null,
-  txStatus: ""
+  txStatus: "",
+  nfogList: [],
 };
 
 const reducer = (state, { type, payload }) => {
@@ -26,6 +26,10 @@ const reducer = (state, { type, payload }) => {
       return { ...state, nfogContract: payload };
     case "SET_TX_STATUS":
       return { ...state, txStatus: payload };
+    case "ADD_NFOG":
+      return { ...state, nfogList: [...state.nfogList, payload] };
+    case "CLEAN_NFOG_LIST":
+      return { ...state, nfogList: [] };
     default:
       return state;
   }
