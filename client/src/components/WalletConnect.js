@@ -10,6 +10,8 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   PopoverBody,
+  TagRightIcon,
+  Kbd,
 } from "@chakra-ui/react";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { injected } from "../utils/connectors";
@@ -23,26 +25,31 @@ export const WalletConnect = () => {
   const { state, dispatch } = useContext(AppContext);
 
   return active ? (
-    <Popover>
+    <Popover width="12%">
       <PopoverTrigger>
-        <Tag size="lg" colorScheme="green" borderRadius="full">
-          <InfoOutlineIcon color="green.500" />
+        <Tag size="lg" colorScheme="blue" variant="outline" borderRadius="full">
           <TagLabel>Connected</TagLabel>
+          <TagRightIcon as={InfoOutlineIcon} />
         </Tag>
       </PopoverTrigger>
-      <PopoverContent bg="tomato" color="white">
-        <PopoverArrow bg="pink.500" />
-        <PopoverCloseButton bg="purple.500" />
+      <PopoverContent bg="blue.100">
+        <PopoverArrow bg="blue.100" />
+        <PopoverCloseButton bg="blue.100" />
         <PopoverBody>
-          Account: {account}
+          <Kbd>Account</Kbd>
           <br />
-          ChainId: {chainId}
+          {account}
+          <br />
+          <Kbd>ChainId</Kbd>
+          <br />
+          {chainId}
         </PopoverBody>
       </PopoverContent>
     </Popover>
   ) : (
     <Button
-      width="15%"
+      colorScheme="blue"
+      width="12%"
       onClick={() =>
         activate(injected, (error) =>
           dispatch({ type: "SET_ERROR", payload: error.toString() })

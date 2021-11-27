@@ -57,7 +57,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
       dispatch({
         type: "ADD_NFOG",
         payload: {
-          uri: tokenCid,
+          uri: tokenUri,
           id: id,
           chainId: chainId,
           contract: contract,

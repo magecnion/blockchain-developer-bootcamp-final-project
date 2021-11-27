@@ -9,8 +9,8 @@ import {
   Link,
   ModalFooter,
   Button,
-  Image,
-  Spinner,
+  Text,
+  Code,
 } from "@chakra-ui/react";
 import { decrypt, encrypt } from "../utils/encryption";
 import { retrieveFromIPFS } from "../utils/ipfs";
@@ -99,8 +99,13 @@ export const NFogCardModal = ({
       <ModalContent>
         <ModalCloseButton />
         <ModalHeader>{nftMetadata.name}</ModalHeader>
-        <ModalBody>{nftMetadata.description}</ModalBody>
-        <ModalBody>{nftMetadata.content}</ModalBody>
+        <ModalBody>
+          <Text as="cite">{nftMetadata.description}</Text>
+        </ModalBody>
+        <ModalBody>
+          <Code>{nftMetadata.content}</Code>
+        </ModalBody>
+
         <ModalFooter>
           {nftMetadata.isOpen ? (
             nftMetadata.encrypted ? (
@@ -123,7 +128,7 @@ export const NFogCardModal = ({
                 onClick={hide}
                 disabled={!active}
               >
-                Encrypt content
+                Hide content
               </Button>
             )
           ) : (

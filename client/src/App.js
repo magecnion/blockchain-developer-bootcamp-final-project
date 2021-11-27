@@ -1,4 +1,4 @@
-import { Container, ChakraProvider } from "@chakra-ui/react";
+import { Container, ChakraProvider, Divider } from "@chakra-ui/react";
 import { NFogList } from "./components/NFogList";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
@@ -44,13 +44,15 @@ function App() {
       <Web3ReactProvider getLibrary={getLibrary}>
         <ChakraProvider>
           <div className="App">
-            <Container
-              maxW="container.xl"
-              centerContent
-              bg="green.100"
-              width="100%"
-            >
+            <Container maxW="container.xl" centerContent width="100%">
               <Header />
+              <hr
+                style={{
+                  color: "red",
+                  backgroundColor: "red",
+                  height: 5,
+                }}
+              />
               <NFogList />
               <ErrorModal />
             </Container>

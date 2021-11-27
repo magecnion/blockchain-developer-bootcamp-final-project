@@ -1,10 +1,11 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Tag } from "@chakra-ui/react";
 import { NFogCard } from "./NFogCard";
 import { useContract } from "../hooks/useContract";
 import { useEffect, useState, useContext } from "react";
 import { useProvider } from "../hooks/useProvider";
 import { retrieveFromIPFS } from "../utils/ipfs";
 import { AppContext } from "../App";
+import { getNetworkName } from "../utils/blockchain";
 
 const nfogJSON = require("../contracts/NFog.json");
 
@@ -51,9 +52,12 @@ export const NFogList = () => {
   }, []);
 
   return (
-    <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-      <GridItem colSpan={5} bg="tomato" height="50px">
-        {providers.map((provider) => provider.chainId)}
+    <Grid templateColumns="repeat(5, 1fr)" gap={6} w="90%">
+      <GridItem colSpan={5} height="50px" w="100%">
+        Available networks:
+        {providers.map((provider) => (
+          <Tag size="lg">{getNetworkName(provider.chainId)}</Tag>
+        ))}
       </GridItem>
       {state.nfogList.map((token, i) => (
         <NFogCard token={token} key={i} />

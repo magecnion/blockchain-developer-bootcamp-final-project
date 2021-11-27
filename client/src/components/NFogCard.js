@@ -12,6 +12,10 @@ import {
   Image,
   Spinner,
   GridItem,
+  Center,
+  Stack,
+  Text,
+  Heading
 } from "@chakra-ui/react";
 import { decrypt, encrypt } from "../utils/encryption";
 import { retrieveFromIPFS } from "../utils/ipfs";
@@ -23,6 +27,8 @@ import { AppContext } from "../App";
 import { getContractAddress } from "../utils/blockchain";
 import { NFogCardModal } from "./NFogCardModal";
 import { getNetworkName } from "../utils/blockchain";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+
 const nfogJSON = require("../contracts/NFog.json");
 
 export const NFogCard = ({ token }) => {
@@ -84,31 +90,7 @@ export const NFogCard = ({ token }) => {
   };
 
   return (
-    <GridItem colSpan={1} bg="tomato" height="80px" width="80px">
-      {nftMetadata.name}
-      <Button
-        colorScheme="blue"
-        mr={3}
-        onClick={viewCard}
-        disabled={!active || token.chainId !== chainId}
-      >
-        View
-      </Button>
-      <Image src={nftMetadata.image} alt="ipfs image" />
-      {token.chainId}
-      <Link
-        isExternal={true}
-        href={
-          "https://testnets.opensea.io/assets/" +
-          getNetworkName(token.chainId) +
-          "/" +
-          token.contract.address +
-          "/" +
-          token.id
-        }
-      >
-        Trade with me
-      </Link>
+    <GridItem colSpan={1} height="100%" w="100%">
       {active && (
         <NFogCardModal
           isOpen={isOpen}
@@ -118,6 +100,86 @@ export const NFogCard = ({ token }) => {
           tokenId={token.id}
         />
       )}
+      <Center py={12}>
+        <Box
+          role={"group"}
+          p={6}
+          maxW={"230px"}
+          w={"full"}
+          bg={"white"}
+          boxShadow={"2xl"}
+          rounded={"lg"}
+          pos={"relative"}
+          zIndex={1}
+        >
+          <Box
+            rounded={"lg"}
+            mt={-12}
+            pos={"relative"}
+            height={"230px"}
+            _after={{
+              transition: "all .3s ease",
+              content: '""',
+              w: "full",
+              h: "full",
+              pos: "absolute",
+              top: 5,
+              left: 0,
+              backgroundImage: `url(${nftMetadata.image})`,
+              filter: "blur(15px)",
+              zIndex: -1,
+            }}
+            _groupHover={{
+              _after: {
+                filter: "blur(20px)",
+              },
+            }}
+          >
+            <Image
+              rounded={"lg"}
+              height={230}
+              width={282}
+              objectFit={"cover"}
+              src={nftMetadata.image}
+            />
+          </Box>
+          <Stack pt={10} align={"center"}>
+            <Text
+              color={"gray.500"}
+              fontSize={"sm"}
+              textTransform={"uppercase"}
+            >
+              {getNetworkName(token.chainId)}
+            </Text>
+            <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
+              {nftMetadata.name}
+            </Heading>
+            <Stack direction={"row"} align={"center"}>
+              <Button
+                colorScheme="blue"
+                mr={3}
+                onClick={viewCard}
+                disabled={!active || token.chainId !== chainId}
+              >
+                View
+              </Button>
+              <Link
+                isExternal={true}
+                href={
+                  "https://testnets.opensea.io/assets/" +
+                  getNetworkName(token.chainId) +
+                  "/" +
+                  token.contract.address +
+                  "/" +
+                  token.id
+                }
+              >
+                Trade{<ExternalLinkIcon/>}
+              </Link>
+            </Stack>
+          </Stack>
+        </Box>
+      </Center>
     </GridItem>
   );
 };
