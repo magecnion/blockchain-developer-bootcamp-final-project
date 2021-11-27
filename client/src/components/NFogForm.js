@@ -142,8 +142,8 @@ export const NFogForm = ({ isOpen, onClose }) => {
             }
             loadingText={
               state.txStatus === "WAITING_WALLET"
-                ? "waiting for wallet"
-                : "waiting for blockchain"
+                ? "Waiting for wallet"
+                : "Waiting for blockchain"
             }
           >
             Create

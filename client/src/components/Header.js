@@ -17,14 +17,30 @@ export const Header = () => {
     useWeb3React();
   return (
     <Flex width="100%" align="center" padding="10px">
-      <Text fontSize="5xl">NFog</Text>
-      <Text fontSize="1xl" padding="5px">
-        Non Fungible Foggy Token
+      <Text as="kbd" fontSize="5xl">
+        NFog
+      </Text>
+      <Text as="kbd" fontSize="1xl" padding="20px">
+        Non Fungible
+      </Text>
+      <Text as="kbd" fontSize="1xl">
+      <Text as="u" fontSize="1xl">
+        Foggy
+      </Text>
+      </Text>
+      <Text as="kbd" fontSize="1xl" padding="5px">
+        Token
       </Text>
 
       <Spacer />
       {active && <NFogForm isOpen={isOpen} onClose={onClose} />}
-      <Button colorScheme="blue" mr="4" width="12%" onClick={onOpen} disabled={!active}>
+      <Button
+        colorScheme="blue"
+        mr="4"
+        width="12%"
+        onClick={onOpen}
+        disabled={!active}
+      >
         Create my NFog
       </Button>
       <WalletConnect />

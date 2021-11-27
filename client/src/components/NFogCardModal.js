@@ -103,7 +103,7 @@ export const NFogCardModal = ({
           <Text as="cite">{nftMetadata.description}</Text>
         </ModalBody>
         <ModalBody>
-          <Code>{nftMetadata.content}</Code>
+          <Code style={{overflowWrap:"break-word", display:"block"}}>{nftMetadata.content}</Code>
         </ModalBody>
 
         <ModalFooter>
@@ -147,8 +147,8 @@ export const NFogCardModal = ({
               }
               loadingText={
                 state.txStatus === "WAITING_WALLET"
-                  ? "waiting for wallet"
-                  : "waiting for blockchain"
+                  ? "Waiting for wallet"
+                  : "Waiting for blockchain"
               }
             >
               Desencrypt content

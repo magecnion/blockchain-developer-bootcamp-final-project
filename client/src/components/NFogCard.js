@@ -15,7 +15,7 @@ import {
   Center,
   Stack,
   Text,
-  Heading
+  Heading,
 } from "@chakra-ui/react";
 import { decrypt, encrypt } from "../utils/encryption";
 import { retrieveFromIPFS } from "../utils/ipfs";
@@ -28,6 +28,9 @@ import { getContractAddress } from "../utils/blockchain";
 import { NFogCardModal } from "./NFogCardModal";
 import { getNetworkName } from "../utils/blockchain";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { UnlockIcon, LockIcon } from "@chakra-ui/icons";
+
 
 const nfogJSON = require("../contracts/NFog.json");
 
@@ -116,7 +119,7 @@ export const NFogCard = ({ token }) => {
             rounded={"lg"}
             mt={-12}
             pos={"relative"}
-            height={"230px"}
+            height={"150px"}
             _after={{
               transition: "all .3s ease",
               content: '""',
@@ -137,12 +140,14 @@ export const NFogCard = ({ token }) => {
           >
             <Image
               rounded={"lg"}
-              height={230}
-              width={282}
+              height={150}
+              width={200}
               objectFit={"cover"}
               src={nftMetadata.image}
+              fallback={() => InfoOutlineIcon}
             />
           </Box>
+          <Box>{token.isOpen ? <UnlockIcon /> : <LockIcon />}</Box>
           <Stack pt={10} align={"center"}>
             <Text
               color={"gray.500"}
@@ -151,9 +156,15 @@ export const NFogCard = ({ token }) => {
             >
               {getNetworkName(token.chainId)}
             </Text>
-            <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
+            <Heading
+              height="50px"
+              fontSize={"xl"}
+              fontFamily={"body"}
+              fontWeight={500}
+            >
               {nftMetadata.name}
             </Heading>
+
             <Stack direction={"row"} align={"center"}>
               <Button
                 colorScheme="blue"
@@ -161,7 +172,7 @@ export const NFogCard = ({ token }) => {
                 onClick={viewCard}
                 disabled={!active || token.chainId !== chainId}
               >
-                View
+                Open
               </Button>
               <Link
                 isExternal={true}
@@ -174,7 +185,7 @@ export const NFogCard = ({ token }) => {
                   token.id
                 }
               >
-                Trade{<ExternalLinkIcon/>}
+                Trade{<ExternalLinkIcon />}
               </Link>
             </Stack>
           </Stack>

@@ -1,4 +1,4 @@
-import { Grid, GridItem, Tag } from "@chakra-ui/react";
+import { Grid, GridItem, Tag, Spinner } from "@chakra-ui/react";
 import { NFogCard } from "./NFogCard";
 import { useContract } from "../hooks/useContract";
 import { useEffect, useState, useContext } from "react";
@@ -34,6 +34,7 @@ export const NFogList = () => {
         let numberOfNfts = (await contract.tokenCount()).toNumber();
         for (let i = 1; i <= numberOfNfts; i++) {
           const tokenURI = await contract.tokenURI(i);
+          const response = await contract.isNFogOpen(i);
           dispatch({
             type: "ADD_NFOG",
             payload: {
@@ -41,6 +42,7 @@ export const NFogList = () => {
               id: i,
               chainId: chainId,
               contract: contract,
+              isOpen: response,
             },
           });
         }
@@ -59,9 +61,17 @@ export const NFogList = () => {
           <Tag size="lg">{getNetworkName(provider.chainId)}</Tag>
         ))}
       </GridItem>
-      {state.nfogList.map((token, i) => (
-        <NFogCard token={token} key={i} />
-      ))}
+      {state.nfogList.length === 0 ? (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      ) : (
+        state.nfogList.map((token, i) => <NFogCard token={token} key={i} />)
+      )}
     </Grid>
   );
 };
