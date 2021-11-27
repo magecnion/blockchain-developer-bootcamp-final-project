@@ -1,15 +1,15 @@
 import { Grid } from "@chakra-ui/react";
 import { NFogCard } from "./NFogCard";
 import { useContract } from "../hooks/useContract";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useProvider } from "../hooks/useProvider";
 import { retrieveFromIPFS } from "../utils/ipfs";
-import { useWeb3React } from "@web3-react/core";
+import { AppContext } from "../App";
 
 const nfogJSON = require("../contracts/NFog.json");
 
 export const NFogList = () => {
-  const [nfogList, setNfogList] = useState([]);
+  const { state, dispatch } = useContext(AppContext);
 
   const local = useContract(
     process.env.REACT_APP_NFOG_CONTRACT_ADDRESS,
@@ -21,21 +21,25 @@ export const NFogList = () => {
 
   useEffect(() => {
     (async () => {
-      var list = new Array();
       for (const { provider, chainId } of providers) {
         let numberOfNfts = (await provider.tokenCount()).toNumber();
         for (let i = 1; i <= numberOfNfts; i++) {
           const tokenURI = await provider.tokenURI(i);
-          list.push({ uri: tokenURI, id: i, chainId: chainId });
+          dispatch({
+            type: "ADD_NFOG",
+            payload: { uri: tokenURI, id: i, chainId: chainId },
+          });
         }
       }
-      setNfogList(list);
     })();
+    return dispatch({
+      type: "CLEAN_NFOG_LIST",
+    });
   }, []);
 
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-      {nfogList.map((token, i) => (
+      {state.nfogList.map((token, i) => (
         <NFogCard token={token} key={i} />
       ))}
     </Grid>
