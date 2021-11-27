@@ -10,6 +10,7 @@ import {
   ModalFooter,
   Button,
   Image,
+  Spinner,
 } from "@chakra-ui/react";
 import { decrypt, encrypt } from "../utils/encryption";
 import { retrieveFromIPFS } from "../utils/ipfs";
@@ -69,13 +70,19 @@ export const NFogCard = ({ token }) => {
 
   const desencrypt = async () => {
     try {
-      dispatch({ type: "SET_TX_STATUS", payload: "LOADING" });
+      dispatch({ type: "SET_TX_STATUS", payload: "WAITING_WALLET" });
       const receipt = await contract.openNFog(token.id);
+      dispatch({ type: "SET_TX_STATUS", payload: "WAITING_BLOCKCHAIN" });
+      await receipt.wait(1);
       dispatch({ type: "SET_TX_STATUS", payload: "COMPLETED" });
+      setNFTMetadata({
+        ...nftMetadata,
+        isOpen: true,
+      });
     } catch (error) {
       dispatch({
         type: "SET_ERROR",
-        payload: error.message,
+        payload: error.data.message,
       });
     }
   };
@@ -90,13 +97,13 @@ export const NFogCard = ({ token }) => {
     } catch (error) {
       dispatch({
         type: "SET_ERROR",
-        payload: error.message,
+        payload: error.data.message,
       });
     }
   };
   const view = async () => {
     try {
-      dispatch({ type: "SET_TX_STATUS", payload: "LOADING" });
+      dispatch({ type: "SET_TX_STATUS", payload: "WAITING_WALLET" });
       const secret = await contract.viewNFog(token.id);
 
       setNFTMetadata({
@@ -113,7 +120,7 @@ export const NFogCard = ({ token }) => {
     }
   };
   const hide = async () => {
-    dispatch({ type: "SET_TX_STATUS", payload: "LOADING" });
+    dispatch({ type: "SET_TX_STATUS", payload: "WAITING_WALLET" });
     const secret = await contract.viewNFog(token.id);
     setNFTMetadata({
       ...nftMetadata,
@@ -150,9 +157,20 @@ export const NFogCard = ({ token }) => {
                   colorScheme="blue"
                   mr={3}
                   onClick={view}
-                  disabled={!active}
-                  isLoading={state.txStatus === "LOADING"}
-                  loadingText="waiting for wallet"
+                  disabled={
+                    !active ||
+                    state.txStatus === "WAITING_WALLET" ||
+                    state.txStatus === "WAITING_BLOCKCHAIN"
+                  }
+                  isLoading={
+                    state.txStatus === "WAITING_WALLET" ||
+                    state.txStatus === "WAITING_BLOCKCHAIN"
+                  }
+                  loadingText={
+                    state.txStatus === "WAITING_WALLET"
+                      ? "waiting for wallet"
+                      : "waiting for blockchain"
+                  }
                 >
                   View content
                 </Button>
@@ -162,8 +180,6 @@ export const NFogCard = ({ token }) => {
                   mr={3}
                   onClick={hide}
                   disabled={!active}
-                  isLoading={state.txStatus === "LOADING"}
-                  loadingText="waiting for wallet"
                 >
                   Encrypt content
                 </Button>
@@ -173,8 +189,12 @@ export const NFogCard = ({ token }) => {
                 colorScheme="blue"
                 mr={3}
                 onClick={desencrypt}
-                disabled={!active}
-                isLoading={state.txStatus === "LOADING"}
+                disabled={
+                  !active ||
+                  state.txStatus === "WAITING_WALLET" ||
+                  state.txStatus === "WAITING_BLOCKCHAIN"
+                }
+                isLoading={state.txStatus === "WAITING_WALLET"}
                 loadingText="waiting for wallet"
               >
                 Desencrypt content
