@@ -15,10 +15,9 @@ export function useProvider(chainId) {
           process.env.REACT_APP_MUMBAI_KEY
         );
       case 1337:
-        const p = new ethers.providers.JsonRpcProvider(
+        return new ethers.providers.JsonRpcProvider(
           process.env.REACT_APP_GANACHE_RPC
         );
-        return p
 
       default:
         break;

@@ -56,9 +56,9 @@ export const uploadTextToIPFS = async (text) => {
     });
 };
 
-export const retrieveFromIPFS = (cid) => {
+export const retrieveFromIPFS = (uri) => {
   return axios
-    .get(process.env.REACT_APP_IFPS_GATEWAY + cid)
+    .get(uri)
     .then(function (response) {
       return response.data;
     })

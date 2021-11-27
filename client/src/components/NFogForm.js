@@ -21,6 +21,7 @@ import { useContract } from "../hooks/useContract";
 import { useWalletProvider } from "../hooks/useProvider";
 import { AppContext } from "../App";
 import { useWeb3React } from "@web3-react/core";
+import { getContractAddress } from "../utils/blockchain";
 
 const nfogJSON = require("../contracts/NFog.json");
 
@@ -37,7 +38,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
     useWeb3React();
 
   const contract = useContract(
-    process.env.REACT_APP_NFOG_CONTRACT_ADDRESS,
+    getContractAddress(chainId),
     nfogJSON.abi,
     useWalletProvider()
   );
@@ -45,15 +46,22 @@ export const NFogForm = ({ isOpen, onClose }) => {
   const submit = async () => {
     try {
       dispatch({ type: "SET_TX_STATUS", payload: "WAITING_WALLET" });
-      const tokenUri = await uploadToIpfs();
-      const receipt = await contract.mint(tokenUri, "key");
+      const key = randomKey();
+      const tokenCid = await uploadToIpfs(key);
+      const tokenUri = "https://ipfs.io/ipfs/" + tokenCid;
+      const receipt = await contract.mint(tokenUri, key);
       dispatch({ type: "SET_TX_STATUS", payload: "WAITING_BLOCKCHAIN" });
       await receipt.wait(1);
       const id = await contract.tokenCount();
       dispatch({ type: "SET_TX_STATUS", payload: "COMPLETED" });
       dispatch({
         type: "ADD_NFOG",
-        payload: { uri: tokenUri, id: id, chainId: chainId },
+        payload: {
+          uri: tokenCid,
+          id: id,
+          chainId: chainId,
+          contract: contract,
+        },
       });
       setNFTMetadata(initialState);
       onClose();
@@ -68,14 +76,14 @@ export const NFogForm = ({ isOpen, onClose }) => {
     }
   };
 
-  const uploadToIpfs = async () => {
+  const uploadToIpfs = async (key) => {
     const contentEncCid = await uploadTextToIPFS(
-      encrypt(nftMetadata.file, randomKey())
+      encrypt(nftMetadata.file, key)
     );
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
-    canvas.width = 300;
-    canvas.height = 300;
+    canvas.width = 350;
+    canvas.height = 350;
     ctx.fillStyle = stringToColour(nftMetadata.file);
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -85,7 +93,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
       name: nftMetadata.name,
       description: nftMetadata.description,
       content: contentEncCid,
-      image: contentColorCid,
+      image: "https://ipfs.io/ipfs/" + contentColorCid,
     });
   };
 

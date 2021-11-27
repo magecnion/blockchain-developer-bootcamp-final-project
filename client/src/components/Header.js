@@ -11,7 +11,7 @@ export const Header = () => {
     <Flex width="100%" bg="red.100">
       <Text fontSize="2xl">NFog</Text>
       <Spacer />
-      <NFogForm isOpen={isOpen} onClose={onClose} />
+      {active && <NFogForm isOpen={isOpen} onClose={onClose} />}
       <Button width="15%" onClick={onOpen} disabled={!active}>
         Create my NFog
       </Button>
