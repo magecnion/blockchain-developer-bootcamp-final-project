@@ -9,7 +9,7 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
-import { encrypt } from "../utils/encryption";
+import { encrypt, randomKey } from "../utils/encryption";
 import {
   uploadTextToIPFS,
   uploadJSONToIPFS,
@@ -70,7 +70,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
 
   const uploadToIpfs = async () => {
     const contentEncCid = await uploadTextToIPFS(
-      encrypt(nftMetadata.file, "key")
+      encrypt(nftMetadata.file, randomKey())
     );
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");

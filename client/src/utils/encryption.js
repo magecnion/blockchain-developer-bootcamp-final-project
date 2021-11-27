@@ -13,3 +13,9 @@ export const decrypt = (content, key) => {
   const content64 = Base64.parse(contentUtf8.toString());
   return Utf8.stringify(content64);
 };
+export const randomKey = () => {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+}
