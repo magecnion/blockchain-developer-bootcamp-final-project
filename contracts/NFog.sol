@@ -58,6 +58,4 @@ contract NFog is ERC721URIStorage {
         require(_openingInfo[_tokenId].isOpen == true, "NFog is not openned");
         return _openingInfo[_tokenId].secret;
     }
-
-    // ERC165
 }
