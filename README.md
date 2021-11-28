@@ -6,6 +6,8 @@ For creating, see opening info and decrypt/view content go to [NFog web](https:/
 
 For trading the marketplace available is [OpenSea](https://testnets.opensea.io/)
 
+Address of author: `0x2f947703b818B44A0d657f7435a2865454BE7D21`
+
 # Table of Contents
 - [Getting started](#getting-started)
     - [Directory structure](#directory-structure)
@@ -84,10 +86,12 @@ NFog metadata it is upload to IPFS following this format:
 {
  "name": "<string>",
  "description": "<string>",
- "image": "https://ipfs.io/ipfs/<cid>", // result of uploading to ipfs a color (hexadecimal format) that depends on encrypted content
- "content":  "https://ipfs.io/ipfs/<cid>" // content encrypted 
+ "image": "https://ipfs.io/ipfs/<cid>",
+ "content":  "https://ipfs.io/ipfs/<cid>" 
 }
 ```
+- `image`: result of uploading to ipfs a color (hexadecimal format) that depends on encrypted content
+- `content`: content encrypted
 
 Notice that if you encrypt the same data the obtained color is the same, like a hash function
 ```
