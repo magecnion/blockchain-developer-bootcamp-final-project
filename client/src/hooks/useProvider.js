@@ -12,10 +12,10 @@ export function useProvider(chainId) {
           80001,
           process.env.REACT_APP_MUMBAI_KEY
         );
-      case 3:
+      case 4:
         return new ethers.providers.AlchemyProvider(
-          3,
-          process.env.REACT_APP_ROPSTEN_KEY
+          4,
+          process.env.REACT_APP_RINKEBY_KEY
         );
       // case 1337:
       //   return new ethers.providers.JsonRpcProvider(

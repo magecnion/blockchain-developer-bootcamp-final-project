@@ -22,7 +22,7 @@ module.exports = {
     deployer: {
       ganache: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
       mumbai: "0xdb3Dc9B0419Ef86B669A41F0E97dcf6f7567765d",
-      ropsten: "0xdb3Dc9B0419Ef86B669A41F0E97dcf6f7567765d",
+      rinkeby: "0xdb3Dc9B0419Ef86B669A41F0E97dcf6f7567765d",
     },
   },
   networks: {
@@ -36,10 +36,10 @@ module.exports = {
         process.env.ALCHEMY_KEY_MUMBAI,
       accounts,
     },
-    ropsten: {
+    rinkeby: {
       url:
-        "https://eth-ropsten.alchemyapi.io/v2/" +
-        process.env.ALCHEMY_KEY_ROPSTEN,
+        "https://eth-rinkeby.alchemyapi.io/v2/" +
+        process.env.ALCHEMY_KEY_RINKEBY,
       accounts,
     },
   },

@@ -5,8 +5,8 @@ export const getNetworkName = (chainId) => {
             return "ganache";
         case 80001:
             return "mumbai";
-        case 3:
-            return "ropsten";
+        case 4:
+            return "rinkeby";
         default:
             break;
     }

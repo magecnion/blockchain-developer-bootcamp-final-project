@@ -8,7 +8,7 @@
     "test": "./node_modules/.bin/hardhat test",
     "deploy:ganache": "./node_modules/.bin/hardhat deploy --network ganache --export-all client/src/contracts/NFog.json --reset",
     "deploy:mumbai": "./node_modules/.bin/hardhat deploy --network mumbai --export-all client/src/contracts/NFog.json --reset",
-    "deploy:ropsten": "./node_modules/.bin/hardhat deploy --network ropsten --export-all client/src/contracts/NFog.json --reset"
+    "deploy:rinkeby": "./node_modules/.bin/hardhat deploy --network rinkeby --export-all client/src/contracts/NFog.json --reset"
   },
   "keywords": [],
   "author": "",
