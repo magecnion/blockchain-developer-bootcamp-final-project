@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("NFog", function () {
+describe("NFog initialization", function () {
   before(async function () {
     this.NFog = await ethers.getContractFactory("NFog");
   });
@@ -11,9 +11,14 @@ describe("NFog", function () {
     await this.nfog.deployed();
   });
 
-  it("Returns after initialization", async function () {
+  it("Should return zero tokens", async function () {
     expect(await this.nfog.tokenCount()).to.equal(0);
-    expect(await this.nfog.isNFogOpen(0)).to.equal(false);
+  });
+
+  it("Should revert when asking for some token id", async function () {
+    await expect(this.nfog.isNFogOpen(0)).to.be.revertedWith(
+      "NFOG: isOpen query for nonexistent token"
+    );
     await expect(this.nfog.viewNFog(0)).to.be.revertedWith(
       "ERC721: owner query for nonexistent token"
     );

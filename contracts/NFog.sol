@@ -40,6 +40,7 @@ contract NFog is ERC721URIStorage {
     }
 
     function isNFogOpen(uint256 _tokenId) public view returns (bool) {
+        require(_exists(_tokenId) == true, "NFOG: isOpen query for nonexistent token");
         return _openingInfo[_tokenId].isOpen;
     }
 
