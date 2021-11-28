@@ -2,6 +2,7 @@
 require("dotenv").config();
 require("@nomiclabs/hardhat-ethers");
 require("hardhat-deploy");
+require("@nomiclabs/hardhat-waffle");
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
