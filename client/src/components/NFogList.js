@@ -9,11 +9,11 @@ import { getNetworkName } from "../utils/blockchain";
 export const NFogList = () => {
   const { state, dispatch } = useContext(AppContext);
 
-  const local = useContract(1337, useProvider(1337));
+  // const local = useContract(1337, useProvider(1337));
   const mumbai = useContract(80001, useProvider(80001));
 
   const providers = [
-    { contract: local, chainId: 1337 },
+    // { contract: local, chainId: 1337 },
     { contract: mumbai, chainId: 80001 },
   ];
 
