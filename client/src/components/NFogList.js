@@ -11,10 +11,12 @@ export const NFogList = () => {
 
   // const local = useContract(1337, useProvider(1337));
   const mumbai = useContract(80001, useProvider(80001));
+  const ropsten = useContract(3, useProvider(3));
 
   const providers = [
     // { contract: local, chainId: 1337 },
     { contract: mumbai, chainId: 80001 },
+    { contract: ropsten, chainId: 3 },
   ];
 
   useEffect(() => {

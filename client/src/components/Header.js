@@ -19,13 +19,13 @@ export const Header = () => {
       <Text as="kbd" fontSize="5xl">
         NFog
       </Text>
-      <Text as="kbd" fontSize="1xl" padding="20px">
+      <Text as="kbd" fontSize="1xl" paddingLeft="30px">
         Non Fungible
       </Text>
       <Text as="kbd" fontSize="1xl">
-      <Text as="u" fontSize="1xl">
-        Foggy
-      </Text>
+        <Text as="u" fontSize="1xl" paddingLeft="7px">
+          Foggy
+        </Text>
       </Text>
       <Text as="kbd" fontSize="1xl" padding="5px">
         Token
