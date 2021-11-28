@@ -89,7 +89,7 @@
                   "type": "address"
                 }
               ],
-              "name": "NFogOpenned",
+              "name": "NFogOpen",
               "type": "event"
             },
             {

@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract NFog is ERC721URIStorage {
     using Counters for Counters.Counter;
 
-    event NFogOpenned(uint indexed tokenId, address indexed owner);
+    event NFogOpen(uint indexed tokenId, address indexed owner);
 
     Counters.Counter public tokenCount;
 
@@ -27,13 +27,13 @@ contract NFog is ERC721URIStorage {
     constructor(string memory _name, string memory _symbol) 
     ERC721(_name, _symbol) {}
 
-    function mint(string memory tokenURI, string memory secret) public returns (uint256) {
+    function mint(string memory _tokenURI, string memory secret) public returns (uint256) {
         tokenCount.increment();
 
         uint256 newItemId = tokenCount.current();
 
         _safeMint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+        _setTokenURI(newItemId, _tokenURI);
         _setOpeningInfo(newItemId, secret);
 
         return newItemId;
@@ -50,13 +50,13 @@ contract NFog is ERC721URIStorage {
     }
 
     function openNFog(uint256 _tokenId) onlyNFogOwner(_tokenId) public {
-        require(_openingInfo[_tokenId].isOpen == false, "NFog is already openned");
+        require(isNFogOpen(_tokenId) == false, "NFog is already open");
         _openingInfo[_tokenId].isOpen = true;
-        emit NFogOpenned(_tokenId, msg.sender);
+        emit NFogOpen(_tokenId, msg.sender);
     }
 
     function viewNFog(uint256 _tokenId) public view onlyNFogOwner(_tokenId) returns(string memory) {
-        require(_openingInfo[_tokenId].isOpen == true, "NFog is not openned");
+        require(isNFogOpen(_tokenId) == true, "NFog is not open");
         return _openingInfo[_tokenId].secret;
     }
 }
