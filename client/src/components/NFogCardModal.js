@@ -15,8 +15,6 @@ import { useContract } from "../hooks/useContract";
 import { useWalletProvider } from "../hooks/useProvider";
 import { useWeb3React } from "@web3-react/core";
 import { AppContext } from "../App";
-import { getContractAddress } from "../utils/blockchain";
-const nfogJSON = require("../contracts/NFog.json");
 
 export const NFogCardModal = ({
   isOpen,
@@ -29,8 +27,7 @@ export const NFogCardModal = ({
   const { active, chainId } = useWeb3React();
 
   const contract = useContract(
-    getContractAddress(chainId),
-    nfogJSON.abi,
+    chainId,
     useWalletProvider()
   );
 

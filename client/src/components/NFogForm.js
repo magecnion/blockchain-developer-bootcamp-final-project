@@ -21,9 +21,6 @@ import { useContract } from "../hooks/useContract";
 import { useWalletProvider } from "../hooks/useProvider";
 import { AppContext } from "../App";
 import { useWeb3React } from "@web3-react/core";
-import { getContractAddress } from "../utils/blockchain";
-
-const nfogJSON = require("../contracts/NFog.json");
 
 const initialState = {
   name: "",
@@ -37,8 +34,7 @@ export const NFogForm = ({ isOpen, onClose }) => {
   const { chainId } = useWeb3React();
 
   const contract = useContract(
-    getContractAddress(chainId),
-    nfogJSON.abi,
+    chainId,
     useWalletProvider()
   );
 
@@ -159,7 +155,7 @@ const stringToColour = function (str) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
   var colour = "#";
-  for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     var value = (hash >> (i * 8)) & 0xff;
     colour += ("00" + value.toString(16)).substr(-2);
   }

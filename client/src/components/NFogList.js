@@ -6,21 +6,11 @@ import { useProvider } from "../hooks/useProvider";
 import { AppContext } from "../App";
 import { getNetworkName } from "../utils/blockchain";
 
-const nfogJSON = require("../contracts/NFog.json");
-
 export const NFogList = () => {
   const { state, dispatch } = useContext(AppContext);
 
-  const local = useContract(
-    process.env.REACT_APP_NFOG_CONTRACT_ADDRESS_LOCAL,
-    nfogJSON.abi,
-    useProvider(1337)
-  );
-  const mumbai = useContract(
-    process.env.REACT_APP_NFOG_CONTRACT_ADDRESS_MUMBAI,
-    nfogJSON.abi,
-    useProvider(80001)
-  );
+  const local = useContract(1337, useProvider(1337));
+  const mumbai = useContract(80001, useProvider(80001));
 
   const providers = [
     { contract: local, chainId: 1337 },
