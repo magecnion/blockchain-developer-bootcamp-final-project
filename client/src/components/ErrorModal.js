@@ -13,7 +13,7 @@ import { useWeb3React } from "@web3-react/core";
 
 export const ErrorModal = () => {
   const { state, dispatch } = useContext(AppContext);
-  const { activate, active, account, deactivate, chainId, error } =
+  const { deactivate } =
     useWeb3React();
   return (
     <Modal

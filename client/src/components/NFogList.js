@@ -1,9 +1,8 @@
 import { Grid, GridItem, Tag, Spinner } from "@chakra-ui/react";
 import { NFogCard } from "./NFogCard";
 import { useContract } from "../hooks/useContract";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useProvider } from "../hooks/useProvider";
-import { retrieveFromIPFS } from "../utils/ipfs";
 import { AppContext } from "../App";
 import { getNetworkName } from "../utils/blockchain";
 
@@ -55,8 +54,8 @@ export const NFogList = () => {
 
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={6} w="90%">
-      <GridItem colSpan={5} height="50px" w="100%">
-        Available networks:
+      <GridItem colSpan={5} paddingTop="100px"  w="100%">
+        Available networks
         {providers.map((provider) => (
           <Tag size="lg">{getNetworkName(provider.chainId)}</Tag>
         ))}

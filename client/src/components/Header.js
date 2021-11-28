@@ -1,10 +1,9 @@
 import {
   Button,
-  Divider,Text,
+  Text,
   useDisclosure,
   Spacer,
   Flex,
-  Center,
   
 } from "@chakra-ui/react";
 import { NFogForm } from "./NFogForm";
@@ -13,7 +12,7 @@ import { useWeb3React } from "@web3-react/core";
 
 export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { activate, active, account, deactivate, chainId, error } =
+  const { active } =
     useWeb3React();
   return (
     <Flex width="100%" align="center" padding="10px">

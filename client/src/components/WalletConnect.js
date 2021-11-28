@@ -1,10 +1,8 @@
 import {
   Button,
   Tag,
-  Avatar,
   TagLabel,
   Popover,
-  PopoverHeader,
   PopoverTrigger,
   PopoverContent,
   PopoverArrow,
@@ -16,13 +14,12 @@ import {
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { injected } from "../utils/connectors";
 import { useWeb3React } from "@web3-react/core";
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { AppContext } from "../App";
 
 export const WalletConnect = () => {
-  const { activate, active, account, deactivate, chainId, error } =
-    useWeb3React();
-  const { state, dispatch } = useContext(AppContext);
+  const { activate, active, account, chainId } = useWeb3React();
+  const { dispatch } = useContext(AppContext);
 
   return active ? (
     <Popover width="12%">

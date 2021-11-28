@@ -1,20 +1,16 @@
 import {
-  Box,
   Modal,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  useDisclosure,
-  Link,
   ModalFooter,
   Button,
   Text,
   Code,
 } from "@chakra-ui/react";
 import { decrypt, encrypt } from "../utils/encryption";
-import { retrieveFromIPFS } from "../utils/ipfs";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import { useContract } from "../hooks/useContract";
 import { useWalletProvider } from "../hooks/useProvider";
 import { useWeb3React } from "@web3-react/core";
@@ -30,8 +26,7 @@ export const NFogCardModal = ({
   tokenId,
 }) => {
   const { state, dispatch } = useContext(AppContext);
-  const { activate, active, account, deactivate, chainId, error } =
-    useWeb3React();
+  const { active, chainId } = useWeb3React();
 
   const contract = useContract(
     getContractAddress(chainId),

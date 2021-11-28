@@ -34,8 +34,7 @@ const initialState = {
 export const NFogForm = ({ isOpen, onClose }) => {
   const { state, dispatch } = useContext(AppContext);
   const [nftMetadata, setNFTMetadata] = useState(initialState);
-  const { activate, active, account, deactivate, chainId, error } =
-    useWeb3React();
+  const { chainId } = useWeb3React();
 
   const contract = useContract(
     getContractAddress(chainId),

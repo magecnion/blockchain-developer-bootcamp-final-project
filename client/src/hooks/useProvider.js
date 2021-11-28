@@ -1,11 +1,9 @@
-import { Contract } from "@ethersproject/contracts";
-import { AddressZero } from "@ethersproject/constants";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import { AppContext } from "../App";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 export function useProvider(chainId) {
-  const { state, dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
   
   try {
     switch (chainId) {

@@ -1,30 +1,19 @@
 import {
   Box,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
   useDisclosure,
   Link,
-  ModalFooter,
   Button,
   Image,
-  Spinner,
   GridItem,
   Center,
   Stack,
   Text,
   Heading,
 } from "@chakra-ui/react";
-import { decrypt, encrypt } from "../utils/encryption";
 import { retrieveFromIPFS } from "../utils/ipfs";
 import { useEffect, useState, useContext } from "react";
-import { useContract } from "../hooks/useContract";
-import { useWalletProvider } from "../hooks/useProvider";
 import { useWeb3React } from "@web3-react/core";
 import { AppContext } from "../App";
-import { getContractAddress } from "../utils/blockchain";
 import { NFogCardModal } from "./NFogCardModal";
 import { getNetworkName } from "../utils/blockchain";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
@@ -32,10 +21,8 @@ import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { UnlockIcon, LockIcon } from "@chakra-ui/icons";
 
 
-const nfogJSON = require("../contracts/NFog.json");
-
 export const NFogCard = ({ token }) => {
-  const { state, dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
 
   const [nftMetadata, setNFTMetadata] = useState({
     name: "",
@@ -46,7 +33,7 @@ export const NFogCard = ({ token }) => {
     encrypted: true,
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { activate, active, account, deactivate, chainId, error } =
+  const { active, chainId } =
     useWeb3React();
 
   useEffect(() => {

@@ -1,11 +1,10 @@
-import { Container, ChakraProvider, Divider } from "@chakra-ui/react";
+import { Container, ChakraProvider } from "@chakra-ui/react";
 import { NFogList } from "./components/NFogList";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { Header } from "./components/Header";
 import { createContext, useReducer } from "react";
 import { ErrorModal } from "./components/ErrorModal";
-import { useWeb3React } from "@web3-react/core";
 
 function getLibrary(provider) {
   return new Web3Provider(provider);
