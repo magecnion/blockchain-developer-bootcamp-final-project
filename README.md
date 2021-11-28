@@ -82,7 +82,7 @@ After opening the NFog you will be able to view it, since this moment the NFog i
 # NFT Metadata
 
 NFog metadata it is upload to IPFS following this format:
-```json
+```
 {
  "name": "<string>",
  "description": "<string>",
