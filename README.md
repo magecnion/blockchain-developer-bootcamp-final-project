@@ -1,4 +1,4 @@
-# NFog
+# :lock:NFog:unlock:
 
 NFog is a descentralized application which gives you the power of creating you own ~~secret~~ foggy NFT. When you create an NFog the text content is encrypted and only the owner is able to desencrypt and then view it. Once the NFog was desencrypted it is marked as `open`. As buyer the main value is to buy something that is not open, even you can buy some NFog close and then to sell it without opening.
 
@@ -13,15 +13,16 @@ Address of author: `0x2f947703b818B44A0d657f7435a2865454BE7D21`
     - [Directory structure](#directory-structure)
     - [How to run client locally](#how-to-run-client-locally)
     - [How to compile](#how-to-compile)
-    - [How to deploy](#how-to-deploy)
 - [UX decisions](#ux-decisions)
 - [Dapp](#dapp)
     - [Create a NFog](#create-a-nfog)
     - [Open a NFog](#open-a-nfog)
     - [View a NFog](#view-a-nfog)
+- [NFT Metadata](#nft-metadata)
 - [Avoiding common attacks](./docs/avoiding_common_attacks.md)
 - [Design pattern desicions](./docs/design_patterns_desicions.md)
-- [NFT Metadata](#nft-metadata)
+- [Testing design](./docs/testing_design.md)
+- [Deployed address](./deployed_address.txt)
 
 # Getting started
 
@@ -50,15 +51,11 @@ REACT_APP_RINKEBY_KEY=
 
 ## How to test
 
-Go to root project folder and run `npm run test`
+Go to root project folder and run `npm ci` and then `npm run test`
 
 ## How to compile
 
-Go to root project folder and run `npm run compile`
-
-## How to deploy
-
-Go to root project folder and run `npm run deploy:<network>`, network could be `ganache`, `mumbai` or `rinkeby`.
+Go to root project folder and run `npm ci` and then `npm run compile`
 
 # UX decisions
 
