@@ -28,6 +28,7 @@ contract NFog is ERC721URIStorage {
     ERC721(_name, _symbol) {}
 
     function mint(string memory _tokenURI, string memory secret) public returns (uint256) {
+        require(bytes(_tokenURI).length != 0, "Token URI cannot be empty");
         tokenCount.increment();
 
         uint256 newItemId = tokenCount.current();

@@ -28,6 +28,20 @@ describe("NFog initialization", function () {
   });
 });
 
+describe("NFog minting", function () {
+  before(async function () {
+    this.NFog = await ethers.getContractFactory("NFog");
+  });
+  
+  it("Revert if token uri is empty", async function () {
+    this.nfog = await this.NFog.deploy("Testing collection", "TEST");
+    await this.nfog.deployed();
+    await expect(this.nfog.mint("", "myawesomesecret")).to.be.revertedWith(
+      "Token URI cannot be empty"
+    );
+  });
+});
+
 describe("NFog openning", function () {
   before(async function () {
     this.NFog = await ethers.getContractFactory("NFog");
