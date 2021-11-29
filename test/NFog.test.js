@@ -1,6 +1,20 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
+/**
+ * SOME COMMENTS
+ * 
+ * The main goal of this tests is to check the funcionality of the openings logic.
+ * 
+ * As ERC721 implementation comes from OpenZeppelin, which is library for secure smart contract development
+ * and build on a solid foundation of community-vetted code, the following tests are focused
+ * on testing opening logic (e.g. only the owner can open a NFog, once it is open it won't be closed anymore...)
+ * 
+ * First, the state after NFog initialization is tested, then what should happen after mintin a NFog and
+ * finally all the logic behing the opening.
+ * 
+ */
+
 describe("NFog initialization", function () {
   before(async function () {
     this.NFog = await ethers.getContractFactory("NFog");

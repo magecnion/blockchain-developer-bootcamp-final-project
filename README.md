@@ -21,7 +21,6 @@ Address of author: `0x2f947703b818B44A0d657f7435a2865454BE7D21`
 - [NFT Metadata](#nft-metadata)
 - [Avoiding common attacks](./docs/avoiding_common_attacks.md)
 - [Design pattern desicions](./docs/design_patterns_desicions.md)
-- [Testing design](./docs/testing_design.md)
 - [Deployed address](./deployed_address.txt)
 
 # Getting started
