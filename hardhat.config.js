@@ -15,7 +15,10 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-const accounts = [process.env.PRIVATE_KEY_GANACHE, process.env.PRIVATE_KEY];
+const accounts = [
+  process.env.PRIVATE_KEY_GANACHE || "0x0000000000000000000000000000000000000000",
+  process.env.PRIVATE_KEY || "0x0000000000000000000000000000000000000000",
+];
 module.exports = {
   solidity: "0.8.0",
   namedAccounts: {
@@ -26,21 +29,21 @@ module.exports = {
     },
   },
   networks: {
-    // ganache: {
-    //   url: "http://127.0.0.1:8545",
-    //   accounts,
-    // },
-    // mumbai: {
-    //   url:
-    //     "https://polygon-mumbai.g.alchemy.com/v2/" +
-    //     process.env.ALCHEMY_KEY_MUMBAI,
-    //   accounts,
-    // },
-    // rinkeby: {
-    //   url:
-    //     "https://eth-rinkeby.alchemyapi.io/v2/" +
-    //     process.env.ALCHEMY_KEY_RINKEBY,
-    //   accounts,
-    // },
+    ganache: {
+      url: "http://127.0.0.1:8545",
+      accounts,
+    },
+    mumbai: {
+      url:
+        "https://polygon-mumbai.g.alchemy.com/v2/" +
+        process.env.ALCHEMY_KEY_MUMBAI,
+      accounts,
+    },
+    rinkeby: {
+      url:
+        "https://eth-rinkeby.alchemyapi.io/v2/" +
+        process.env.ALCHEMY_KEY_RINKEBY,
+      accounts,
+    },
   },
 };
