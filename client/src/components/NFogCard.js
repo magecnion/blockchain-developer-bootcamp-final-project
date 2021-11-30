@@ -144,7 +144,7 @@ export const NFogCard = ({ token }) => {
               {getNetworkName(token.chainId)}
             </Text>
             <Heading
-              height="50px"
+              height="80px"
               fontSize={"xl"}
               fontFamily={"body"}
               fontWeight={500}
