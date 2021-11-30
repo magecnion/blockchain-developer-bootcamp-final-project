@@ -6,7 +6,7 @@ For creating, see opening info and decrypt/view content go to [NFog web](https:/
 
 For trading the marketplace available is [OpenSea](https://testnets.opensea.io/)
 
-Address of author: `0x2f947703b818B44A0d657f7435a2865454BE7D21`
+Address of the author: `0x2f947703b818B44A0d657f7435a2865454BE7D21`
 
 # Table of Contents
 - [Getting started](#getting-started)
