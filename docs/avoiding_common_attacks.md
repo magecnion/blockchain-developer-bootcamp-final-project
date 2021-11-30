@@ -1,6 +1,6 @@
 # Avoiding common attacks
 
-- **Unencrypted Private Data On-Chain**: by using the commit and reveal pattern
+- **TODO Unencrypted Private Data On-Chain**: first I though about using the commit and reveal pattern, but then I realised I need the original message hash to reveal it. Then I was thinking of including a salt in the encryption process controled by the Dapp, but it loses descentralization and creates a single point of failure. So I am kind of lost I would like to here suggestions.
 
 - **Tx.origin Attack**: use msg.sender instead of tx.origin
 
