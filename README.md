@@ -15,6 +15,7 @@ Address of author: `0x2f947703b818B44A0d657f7435a2865454BE7D21`
     - [How to compile](#how-to-compile)
 - [UX decisions](#ux-decisions)
 - [Dapp](#dapp)
+    - [Walkthrough](#walkthrough)
     - [Create a NFog](#create-a-nfog)
     - [Open a NFog](#open-a-nfog)
     - [View a NFog](#view-a-nfog)
@@ -61,6 +62,10 @@ Go to root project folder and run `npm ci` and then `npm run compile`
 It is desirable that a user can visit the app and visualize what exists even though he or she can't interact with the dapp. For that reason the UX was designed so you can see the NFog created and if they are open or not, also you can go to the market place and see its movements.
 
 # Dapp
+
+## Walkthrough
+
+[![youtube link](https://img.youtube.com/vi/APRJfJTKDvM/0.jpg)](https://www.youtube.com/watch?v=APRJfJTKDvM)
 
 ## Create a NFog
 
